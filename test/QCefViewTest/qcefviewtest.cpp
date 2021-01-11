@@ -19,8 +19,8 @@ QCefViewTest::QCefViewTest(QWidget* parent)
 
   QDir dir = QCoreApplication::applicationDirPath();
   QString uri = QDir::toNativeSeparators(dir.filePath("QCefViewTestPage.html"));
-  cefview = new CustomCefView(uri, this);
-  // cefview = new CustomCefView("http://www.google.com/", this);
+  // cefview = new CustomCefView(uri, this);
+  cefview = new CustomCefView("https://datiqi.aixuexi.com", this);
   ui.cefContainer->layout()->addWidget(cefview);
   layout->addWidget(ui.cefContainer);
 

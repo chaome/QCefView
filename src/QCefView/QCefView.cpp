@@ -45,8 +45,13 @@ public:
     }
 
     CefBrowserSettings browserSettings;
-    browserSettings.plugins = STATE_DISABLED; // disable all plugins
+    browserSettings.plugins = STATE_ENABLED;
+    browserSettings.javascript_access_clipboard = STATE_ENABLED;
+    browserSettings.javascript_dom_paste = STATE_ENABLED;
 
+    browserSettings.application_cache = STATE_DISABLED;
+    browserSettings.background_color = 0;
+	
     // Create the browser
     pQCefViewHandler_ = new QCefViewBrowserHandler(pCefWindow_);
 

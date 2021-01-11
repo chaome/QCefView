@@ -86,6 +86,6 @@
 /// <summary>
 ///
 /// </summary>
-#define QCEF_USER_AGENT "START/1.0 (Windows; en-us)"
+#define QCEF_USER_AGENT ""
 
 #endif
