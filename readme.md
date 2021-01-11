@@ -19,7 +19,16 @@ Build instruction:
     └─test
     ```
 
-4. Modify the [config.cmake](config.cmake) to set the required build configurations
+4. Modify the [config.cmake](config.cmake) to set the required build configurations. 
+	Set QTDIR before calling cmake,
+    ``` bat
+    set QTDIR=D:\Qt\Qt5.12.9\5.12.9\msvc2017
+    ```
+	or add Qt install location to PATH,
+	``` bat
+    set PATH=D:\Qt\Qt5.12.9\5.12.9\msvc2017;%PATH%
+    ```
+	or change the value of $ENV{QTDIR} in [config.cmake] to where Qt is installed.
 
 5. Just use CMake to build the project, for example:
     ``` bat
