@@ -25,8 +25,6 @@ public:
 
     virtual void OnBeforeChildProcessLaunch(CefRefPtr<QCefViewBrowserApp> app, CefRefPtr<CefCommandLine> command_line)
     {}
-
-    virtual void OnRenderProcessThreadCreated(CefRefPtr<QCefViewBrowserApp> app, CefRefPtr<CefListValue> extra_info) {}
   };
   typedef std::set<CefRefPtr<BrowserDelegate>> BrowserDelegateSet;
 
@@ -64,9 +62,7 @@ private:
   virtual void OnContextInitialized() override;
 
   virtual void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line) override;
-
-  virtual void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info) override;
-
+  
   virtual CefRefPtr<CefPrintHandler> GetPrintHandler() override;
 
   virtual void OnScheduleMessagePumpWork(int64 delay_ms) override;

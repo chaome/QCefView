@@ -16,8 +16,4 @@ BrowserDelegate::OnContextInitialized(CefRefPtr<QCefViewBrowserApp> app)
 void
 BrowserDelegate::OnBeforeChildProcessLaunch(CefRefPtr<QCefViewBrowserApp> app, CefRefPtr<CefCommandLine> command_line)
 {}
-
-void
-BrowserDelegate::OnRenderProcessThreadCreated(CefRefPtr<QCefViewBrowserApp> app, CefRefPtr<CefListValue> extra_info)
-{}
 }

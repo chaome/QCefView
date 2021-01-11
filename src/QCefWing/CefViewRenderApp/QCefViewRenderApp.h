@@ -38,13 +38,6 @@ public:
     ///
     /// </summary>
     /// <param name="app"></param>
-    /// <param name="extra_info"></param>
-    virtual void OnRenderThreadCreated(CefRefPtr<QCefViewRenderApp> app, CefRefPtr<CefListValue> extra_info) {}
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="app"></param>
     virtual void OnWebKitInitialized(CefRefPtr<QCefViewRenderApp> app) {}
 
     /// <summary>
@@ -204,11 +197,6 @@ private:
 #pragma region CefRenderProcessHandler
 
   // CefRenderProcessHandler methods:
-  /// <summary>
-  ///
-  /// </summary>
-  /// <param name="extra_info"></param>
-  virtual void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info) override;
 
   /// <summary>
   ///
