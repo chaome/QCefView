@@ -51,6 +51,7 @@ public:
 
     browserSettings.application_cache = STATE_DISABLED;
     browserSettings.background_color = 0;
+    browserSettings.web_security = STATE_DISABLED;
 	
     // Create the browser
     pQCefViewHandler_ = new QCefViewBrowserHandler(pCefWindow_);

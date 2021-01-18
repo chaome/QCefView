@@ -46,16 +46,11 @@ CCefManager::initializeCef()
   cef_settings_.no_sandbox = true;
   cef_settings_.pack_loading_disabled = false;
   cef_settings_.multi_threaded_message_loop = true;
-
-  cef_settings_.remote_debugging_port = 8899;
-
-#ifndef NDEBUG
+  cef_settings_.ignore_certificate_errors = true; 
+  
   cef_settings_.log_severity = LOGSEVERITY_DEFAULT;
   cef_settings_.remote_debugging_port = CCefSetting::remote_debugging_port;
-#else
-  cef_settings_.log_severity = LOGSEVERITY_DISABLE;
-#endif
-
+ 
   app_ = new QCefViewBrowserApp(CCefSetting::bridge_object_name);
 
   HINSTANCE hInstance = ::GetModuleHandle(nullptr);

@@ -12,7 +12,7 @@
 /// <summary>
 ///
 /// </summary>
-#define QCEF_QUERY_NAME "QCefQuery"
+#define QCEF_QUERY_NAME "aWebQuery"
 
 /// <summary>
 ///

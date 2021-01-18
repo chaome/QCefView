@@ -31,8 +31,19 @@ QCefViewBrowserApp::OnBeforeCommandLineProcessing(const CefString& process_type,
   command_line->AppendSwitch("no-proxy-server");
   command_line->AppendSwitch("in-process-gpu");
   command_line->AppendSwitch("disable-direct-composition");
+  command_line->AppendSwitch("allow-running-insecure-content");
+
   command_line->AppendSwitchWithValue("disable-features", "NetworkService");
   command_line->AppendSwitchWithValue("renderer-process-limit", "1");
+
+  // NOTE: The following function will set all three params
+  command_line->AppendSwitchWithValue("disable-gpu", "1");
+  command_line->AppendSwitchWithValue("disable-gpu-compositing", "1");
+  command_line->AppendSwitchWithValue("enable-begin-frame-scheduling", "1");
+
+  command_line->AppendSwitchWithValue("disable-gpu-vsync", "1");
+  // Disables the DirectWrite font rendering system on windows.
+  command_line->AppendSwitchWithValue("disable-direct-write", "1");
 }
 
 void
