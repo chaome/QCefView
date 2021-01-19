@@ -68,6 +68,8 @@ class QCefClient : public CefBaseRefCounted
               CefRefPtr<CefFrame> frame,
               QCefClient::EventListenerListMap& eventListenerListMap);
 
+	void setDeviceSerialNumber(const CefString& sn);
+
     /// <summary>
     ///
     /// </summary>
@@ -98,6 +100,12 @@ class QCefClient : public CefBaseRefCounted
                              CefRefPtr<CefV8Value>& retval,
                              CefString& exception);
 
+	void ExecuteDeviceSerialNumber(const CefString& function,
+                                   CefRefPtr<CefV8Value> object,
+                                   const CefV8ValueList& arguments,
+                                   CefRefPtr<CefV8Value>& retval,
+                                   CefString& exception);
+
     /// <summary>
     ///
     /// </summary>
@@ -127,6 +135,8 @@ class QCefClient : public CefBaseRefCounted
                                     CefString& exception);
 
   private:
+    CefString _deviceSerialNumber;
+
     /// <summary>
     ///
     /// </summary>
@@ -167,7 +177,10 @@ public:
   /// <param name="dict"></param>
   void ExecuteEventListener(const CefString eventName, CefRefPtr<CefDictionaryValue> dict);
 
+  void setInternalStringValue(const CefString fieldName, const CefString fieldValue);
+
 private:
+  CefRefPtr<V8Handler> _handler;
   /// <summary>
   ///
   /// </summary>

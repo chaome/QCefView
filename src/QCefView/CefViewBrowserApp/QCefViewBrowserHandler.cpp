@@ -545,7 +545,7 @@ QCefViewBrowserHandler::CloseAllBrowsers(bool force_close)
 }
 
 bool
-QCefViewBrowserHandler::TriggerEvent(const int64_t frame_id, const CefRefPtr<CefProcessMessage> msg)
+QCefViewBrowserHandler::sendRenderAppMessage(const int64_t frame_id, const CefRefPtr<CefProcessMessage> msg)
 {
   if (msg->GetName().empty())
     return false;

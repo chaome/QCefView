@@ -28,6 +28,12 @@ QCefClient::V8Handler::V8Handler(CefRefPtr<CefBrowser> browser,
   , eventListenerListMap_(eventListenerListMap)
 {}
 
+void
+QCefClient::V8Handler::setDeviceSerialNumber(const CefString& sn)
+{
+  _deviceSerialNumber = sn;
+}
+
 bool
 QCefClient::V8Handler::Execute(const CefString& function,
                                CefRefPtr<CefV8Value> object,
@@ -41,6 +47,8 @@ QCefClient::V8Handler::Execute(const CefString& function,
     ExecuteAddEventListener(function, object, arguments, retval, exception);
   else if (function == QCEF_REMOVEEVENTLISTENER)
     ExecuteRemoveEventListener(function, object, arguments, retval, exception);
+  else if (function == QCEF_DeviceSeriaNumberFunc)
+    ExecuteDeviceSerialNumber(function, object, arguments, retval, exception);
   else
     return false;
 
@@ -81,6 +89,17 @@ QCefClient::V8Handler::ExecuteInvokeMethod(const CefString& function,
     frame_->SendProcessMessage(PID_BROWSER, msg);
 
   retval = CefV8Value::CreateUndefined();
+}
+
+void
+QCefClient::V8Handler::ExecuteDeviceSerialNumber(const CefString& function,
+                                                 CefRefPtr<CefV8Value> object,
+                                                 const CefV8ValueList& arguments,
+                                                 CefRefPtr<CefV8Value>& retval,
+                                                 CefString& exception)
+{
+  auto v = CefV8Value::CreateString(_deviceSerialNumber);
+  retval = v;
 }
 
 void
@@ -173,20 +192,23 @@ QCefClient::QCefClient(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame)
   , frame_(frame)
 {
   // create function handler
-  CefRefPtr<V8Handler> handler = new V8Handler(browser_, frame_, eventListenerListMap_);
+  _handler = new V8Handler(browser_, frame_, eventListenerListMap_);
 
   // create function function
-  CefRefPtr<CefV8Value> funcInvokeMethod = CefV8Value::CreateFunction(QCEF_INVOKEMETHOD, handler);
+  CefRefPtr<CefV8Value> funcInvokeMethod = CefV8Value::CreateFunction(QCEF_INVOKEMETHOD, _handler);
   // add this function to window object
   object_->SetValue(QCEF_INVOKEMETHOD, funcInvokeMethod, V8_PROPERTY_ATTRIBUTE_READONLY);
 
+  auto fun = CefV8Value::CreateFunction(QCEF_DeviceSeriaNumberFunc, _handler);
+  object_->SetValue(QCEF_DeviceSeriaNumberFunc, fun, V8_PROPERTY_ATTRIBUTE_READONLY);
+
   // create function function
-  CefRefPtr<CefV8Value> funcAddEventListener = CefV8Value::CreateFunction(QCEF_ADDEVENTLISTENER, handler);
+  CefRefPtr<CefV8Value> funcAddEventListener = CefV8Value::CreateFunction(QCEF_ADDEVENTLISTENER, _handler);
   // add this function to window object
   object_->SetValue(QCEF_ADDEVENTLISTENER, funcAddEventListener, V8_PROPERTY_ATTRIBUTE_READONLY);
 
   // create function function
-  CefRefPtr<CefV8Value> funcRemoveEventListener = CefV8Value::CreateFunction(QCEF_REMOVEEVENTLISTENER, handler);
+  CefRefPtr<CefV8Value> funcRemoveEventListener = CefV8Value::CreateFunction(QCEF_REMOVEEVENTLISTENER, _handler);
   // add this function to window object
   object_->SetValue(QCEF_REMOVEEVENTLISTENER, funcRemoveEventListener, V8_PROPERTY_ATTRIBUTE_READONLY);
 }
@@ -233,5 +255,13 @@ QCefClient::ExecuteEventListener(const CefString eventName, CefRefPtr<CefDiction
       listener.callback_->ExecuteFunction(object_, arguments);
       listener.context_->Exit();
     }
+  }
+}
+
+void
+QCefClient::setInternalStringValue(const CefString fieldName, const CefString fieldValue)
+{
+  if (fieldName == "_deviceSerialNumber") {
+    _handler->setDeviceSerialNumber(fieldValue);
   }
 }

@@ -273,8 +273,8 @@ public:
 
   // Request that all existing browser windows close.
   void CloseAllBrowsers(bool force_close);
-
-  bool TriggerEvent(const int64_t frame_id, const CefRefPtr<CefProcessMessage> msg);
+  
+  bool sendRenderAppMessage(const int64_t frame_id, const CefRefPtr<CefProcessMessage> msg);
 
   bool ResponseQuery(const int64_t query, bool success, const CefString& response, int error);
 

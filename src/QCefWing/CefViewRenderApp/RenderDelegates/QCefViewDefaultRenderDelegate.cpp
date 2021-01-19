@@ -99,6 +99,20 @@ RenderDelegate::OnTriggerEventNotifyMessage(CefRefPtr<CefBrowser> browser,
         }
       }
     }
+  } else if (message->GetName() == SETFIELDVALUESTRING_NOTIFY_MESSAGE) {
+    CefRefPtr<CefListValue> messageArguments = message->GetArgumentList();
+    if (messageArguments && (messageArguments->GetSize() >= 2)) {
+      int idx = 0;
+      auto name = messageArguments->GetString(0);
+      auto value = messageArguments->GetString(1);
+
+      int64 frameId = frame->GetIdentifier();
+      auto it = frame_id_to_client_map_.find(frameId);
+      if (it != frame_id_to_client_map_.end()) {
+        const CefRefPtr<QCefClient>& objClient = it->second;
+        objClient->setInternalStringValue(name, value);
+      }
+    }
   }
 
   return false;
@@ -119,5 +133,4 @@ RenderDelegate::ExecuteEventListener(CefRefPtr<CefBrowser> browser,
     }
   }
 }
-
 }

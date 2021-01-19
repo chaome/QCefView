@@ -35,6 +35,11 @@
 #define QCEF_INVOKEMETHOD "invokeMethod"
 
 /// <summary>
+/// QCefClient.deviceSerialNumber()
+/// </summary>
+#define QCEF_DeviceSeriaNumberFunc "deviceSerialNumber"
+
+/// <summary>
 /// QCefClient.addEventListener(type, listener)
 /// </summary>
 #define QCEF_ADDEVENTLISTENER "addEventListener"
@@ -67,6 +72,9 @@
 ///	  msg.arg[2~...]: function parameters
 /// </summary>
 #define TRIGGEREVENT_NOTIFY_MESSAGE "QCefClient#TriggerEventNotify"
+
+
+#define SETFIELDVALUESTRING_NOTIFY_MESSAGE "QCefClient#SetFieldValueString"
 
 /// <summary>
 ///

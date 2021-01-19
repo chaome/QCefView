@@ -216,6 +216,17 @@ public:
     }
   }
 
+  bool sendSetFieldValueMessage(const QString& fieldName, const QString& fieldValue)
+  {
+    auto msg = CefProcessMessage::Create(SETFIELDVALUESTRING_NOTIFY_MESSAGE);
+    auto args = msg->GetArgumentList();
+
+	args->SetString(0, fieldName.toStdString());
+    args->SetString(1, fieldValue.toStdString());
+
+	return pQCefViewHandler_->sendRenderAppMessage(QCefViewBrowserHandler::ALL_FRAMES, msg);
+  }
+
   bool sendEventNotifyMessage(int frameId, const QString& name, const QCefEvent& event)
   {
     CefRefPtr<CefProcessMessage> msg = CefProcessMessage::Create(TRIGGEREVENT_NOTIFY_MESSAGE);
@@ -249,7 +260,7 @@ public:
 
     arguments->SetDictionary(idx++, dict);
 
-    return pQCefViewHandler_->TriggerEvent(frameId, msg);
+    return pQCefViewHandler_->sendRenderAppMessage(frameId, msg);
   }
 
   void onToplevelWidgetMoveOrResize() { notifyMoveOrResizeStarted(); }
@@ -511,6 +522,15 @@ QCefView::broadcastEvent(const QCefEvent& event)
 {
   if (pImpl_)
     return pImpl_->triggerEvent(event.objectName(), event, QCefViewBrowserHandler::ALL_FRAMES);
+
+  return false;
+}
+
+bool
+QCefView::setFieldValue(const QString& fieldName, const QString& fieldValue)
+{
+  if (pImpl_)
+    return pImpl_->sendSetFieldValueMessage(fieldName, fieldValue);
 
   return false;
 }

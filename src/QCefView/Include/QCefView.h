@@ -190,6 +190,14 @@ public:
   /// <summary>
   ///
   /// </summary>
+  /// <param name="fieldName"></param>
+  /// <param name="fieldValue"></param>
+  /// <returns></returns>
+  bool setFieldValue(const QString& fieldName, const QString& fieldValue);
+
+  /// <summary>
+  ///
+  /// </summary>
   /// <param name="query"></param>
   /// <returns></returns>
   bool responseQCefQuery(const QCefQuery& query);
