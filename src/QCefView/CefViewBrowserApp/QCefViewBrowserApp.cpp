@@ -44,6 +44,8 @@ QCefViewBrowserApp::OnBeforeCommandLineProcessing(const CefString& process_type,
   command_line->AppendSwitchWithValue("disable-gpu-vsync", "1");
   // Disables the DirectWrite font rendering system on windows.
   command_line->AppendSwitchWithValue("disable-direct-write", "1");
+  //Fix virtual keyboard issue.
+  command_line->AppendSwitchWithValue("disable-usb-keyboard-detect", "1");
 }
 
 void
